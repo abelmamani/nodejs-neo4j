@@ -1,9 +1,8 @@
 name: Daily Neo4j Cleanup
 
 on:
-  push: 
-    branches: 
-      - main
+  schedule:
+    - cron: '0 0 * * *'  # Todos los días a las 00:00 UTC
 jobs:
   cleanup:
     runs-on: ubuntu-latest
