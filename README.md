@@ -1,24 +1,28 @@
-# Neo4j Daily Cleanup Automation
+# 🧹 Neo4j Daily Cleanup Automation
 
-Automatización diaria para limpieza de fechas de calendario en Neo4j con reportes por email.
+Automated daily cleanup for outdated calendar dates in Neo4j, with email reporting for success or failure.
 
-## 🚀 Características
+## 🚀 Features
+* 🔄 Daily cleanup of outdated calendar entries in Neo4j
+* 📧 Email report with status and service information
+* ⚙️ Scheduled using GitHub Actions
+* ❗ Failure notifications via email
 
-- Limpieza automática diaria de fechas pasadas
-- Reporte por email del servicio del día
-- Configuración mediante GitHub Actions
-- Notificaciones en caso de error
+## 📦 Setup
 
-## ⚙️ Configuración
+### 1. Clone this repository.
+### 2. Install dependencies:
+```bash
+npm install
+```
+### 3. Copy the example environment file:
+```bash
+cp .env.example .env
+```
+### 4. Fill in the required environment variables in .env.
 
-1. Clona el repositorio
-2. Instala dependencias: `npm install`
-3. Copia `.env.example` a `.env`
-4. Configura las variables de entorno en `.env`
-
-## 🔧 GitHub Secrets
-
-Configura estos secrets en tu repositorio de GitHub:
+## 🔐 Required GitHub Secrets
+Make sure to set the following secrets in your GitHub repository:
 
 - `NEO4J_URI`
 - `NEO4J_USER`
@@ -31,6 +35,19 @@ Configura estos secrets en tu repositorio de GitHub:
 - `EMAIL_FROM`
 - `EMAIL_TO`
 
-## 🕐 Programación
+## 🕐 Scheduling
+This workflow runs automatically every day at 03:00 UTC, which corresponds to 00:00 in Argentina (UTC-3).
+```bash
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Every day at 03:00 UTC (midnight in Argentina)
+```
 
-Se ejecuta automáticamente todos los días a las 00:01 UTC
+## 📧 Email Report
+An HTML email is sent after each run, summarizing:
+* 🗑️ Number of calendar dates deleted (from the previous day)
+* 📅 Current date in the database
+* 🏢 Service scheduled for today
+* ✅ or ⚠️ Status of service availability
+
+<p align="center"> <strong>Email Report Example</strong><br> <img src="./public/report.png" width="100%" alt="Email Report"><br><br> </p>
